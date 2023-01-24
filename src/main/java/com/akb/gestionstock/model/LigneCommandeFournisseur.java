@@ -18,6 +18,8 @@ import javax.persistence.Table;
 @Table(name = "ligneCommandeFournisseur")
 public class LigneCommandeFournisseur extends AbstractEntity {
 
+    private Integer idEntreprise;
+
     @ManyToOne
     @JoinColumn(name = "idArticle")
     private Article article;

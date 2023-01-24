@@ -16,6 +16,8 @@ import java.util.List;
 @Table(name = "commandeFournisseur")
 public class CommandeFournisseur extends AbstractEntity {
 
+    private Integer idEntreprise;
+
     @ManyToOne
     @JoinColumn(name = "idFournisseur")
     private Fournisseur fournisseur;

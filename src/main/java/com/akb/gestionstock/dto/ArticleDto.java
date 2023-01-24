@@ -1,7 +1,6 @@
 package com.akb.gestionstock.dto;
 
 import com.akb.gestionstock.model.Article;
-import com.akb.gestionstock.model.Categorie;
 import lombok.Builder;
 import lombok.Data;
 
@@ -25,7 +24,7 @@ public class ArticleDto {
 
     private String photo;
 
-    private CategorieDto categorieDto;
+    private CategoryDto categoryDto;
 
 
     public static ArticleDto fromEntity(Article article) {
@@ -43,7 +42,7 @@ public class ArticleDto {
                 .tauxTva(article.getTauxTva())
                 .prixUnitaireTtc(article.getPrixUnitaireTtc())
                 .photo(article.getPhoto())
-                .categorieDto(CategorieDto.fromEntity(article.getCategorie()))
+                .categoryDto(CategoryDto.fromEntity(article.getCategorie()))
                 .build();
     }
 
@@ -62,7 +61,7 @@ public class ArticleDto {
         article.setPrixUnitaireHt(articleDto.getPrixUnitaireHt());
         article.setPrixUnitaireTtc(articleDto.getPrixUnitaireTtc());
         article.setPhoto(articleDto.getPhoto());
-        article.setCategorie(CategorieDto.toEntity(articleDto.getCategorieDto()));
+        article.setCategorie(CategoryDto.toEntity(articleDto.getCategoryDto()));
 
         return article;
     }

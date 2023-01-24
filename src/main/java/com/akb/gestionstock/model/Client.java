@@ -32,6 +32,8 @@ public class Client extends AbstractEntity {
 
     private String telephone;
 
+    private Integer idEntreprise;
+
     @OneToMany(mappedBy = "client")
     private List<CommandeClient> commandeClients;
 }

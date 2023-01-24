@@ -28,5 +28,7 @@ public class MouvementStock extends AbstractEntity {
 
     private BigDecimal quantite;
 
+    private Integer idEntreprise;
+
     private TypeMouvementStock typeMouvementStock;
 }

@@ -9,7 +9,7 @@ import lombok.Builder;
 
 @Data
 @Builder
-public class CategorieDto {
+public class CategoryDto {
 
     private Integer id;
 
@@ -20,7 +20,7 @@ public class CategorieDto {
     @JsonIgnore
     private List<ArticleDto> articles;
 
-    public static CategorieDto fromEntity(Categorie categorie) {
+    public static CategoryDto fromEntity(Categorie categorie) {
 
         if (categorie == null) {
 
@@ -28,24 +28,24 @@ public class CategorieDto {
             return null;
         }
 
-        return CategorieDto.builder()
+        return CategoryDto.builder()
                 .id(categorie.getId())
                 .code(categorie.getCode())
                 .designation(categorie.getDesignation())
                 .build();
     }
 
-    public static Categorie toEntity(CategorieDto categorieDto) {
+    public static Categorie toEntity(CategoryDto categoryDto) {
 
-        if(categorieDto == null) {
+        if(categoryDto == null) {
             //TODO Throw an Exception
             return null;
         }
 
         Categorie categorie = new Categorie();
-        categorie.setId(categorieDto.getId());
-        categorie.setCode(categorieDto.getCode());
-        categorie.setDesignation(categorieDto.getDesignation());
+        categorie.setId(categoryDto.getId());
+        categorie.setCode(categoryDto.getCode());
+        categorie.setDesignation(categoryDto.getDesignation());
 
         return categorie;
     }

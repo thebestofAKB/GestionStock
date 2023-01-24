@@ -16,6 +16,8 @@ public class UtilisateurValidator {
             errors.add("Veuillez renseigner le 'nom' de l'utilisateur.");
             errors.add("Veuillez renseigner le 'prenom' de l'utilisateur.");
             errors.add("Veuillez renseigner le 'mot de passe' de l'utilisateur.");
+
+            return errors;
         }
 
         if (!StringUtils.hasLength(utilisateurDto.getNom())) {
