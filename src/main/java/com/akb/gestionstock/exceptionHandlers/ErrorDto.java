@@ -1,4 +1,4 @@
-package com.akb.gestionstock;
+package com.akb.gestionstock.exceptionHandlers;
 
 import com.akb.gestionstock.exception.ErrorCodes;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import java.util.List;
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ExceptionHandlers {
+public class ErrorDto {
 
     private Integer httpCode;
 
