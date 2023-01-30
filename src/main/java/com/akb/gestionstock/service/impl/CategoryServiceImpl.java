@@ -3,17 +3,18 @@ package com.akb.gestionstock.service.impl;
 import com.akb.gestionstock.dto.CategoryDto;
 import com.akb.gestionstock.exception.EntityNotFoundException;
 import com.akb.gestionstock.exception.ErrorCodes;
+import com.akb.gestionstock.exception.InvalidEntityException;
 import com.akb.gestionstock.model.Categorie;
 import com.akb.gestionstock.repository.CategoryRepository;
 import com.akb.gestionstock.service.CategoryService;
+import com.akb.gestionstock.validator.CategorieValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.swing.text.html.Option;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -34,12 +35,11 @@ public class CategoryServiceImpl implements CategoryService {
             return null;
         }
 
-        Optional<Categorie> categorie = categoryRepository.findById(id);
-
-        return Optional.of(CategoryDto.fromEntity(categorie.get()))
+        return categoryRepository.findById(id)
+                .map(CategoryDto::fromEntity)
                 .orElseThrow(
-                        () -> new EntityNotFoundException(String.format(
-                                "Aucune Categorie avec l'ID %s n'a ete trouvee.", categorie),
+                        () -> new EntityNotFoundException(
+                                "Aucune Categorie avec l'ID " + id + " n'a ete trouvee.",
                                 ErrorCodes.CATEGORIE_NOT_FOUND)
                 );
     }
@@ -52,9 +52,8 @@ public class CategoryServiceImpl implements CategoryService {
             return null;
         }
 
-        Optional<Categorie> categorie = categoryRepository.findCategorieByCode(codeCategory);
-
-        return Optional.of(CategoryDto.fromEntity(categorie.get()))
+        return categoryRepository.findCategorieByCode(codeCategory)
+                .map(CategoryDto::fromEntity)
                 .orElseThrow(() -> new EntityNotFoundException(
                         String.format("Aucune Categorie avec le CODE %s n'a ete trouvee.", codeCategory),
                         ErrorCodes.CATEGORIE_NOT_FOUND
@@ -69,9 +68,8 @@ public class CategoryServiceImpl implements CategoryService {
             return null;
         }
 
-        Optional<Categorie> categorie = categoryRepository.findCategorieByDesignation(designation);
-
-        return Optional.of(CategoryDto.fromEntity(categorie.get()))
+        return categoryRepository.findCategorieByDesignation(designation)
+                .map(CategoryDto::fromEntity)
                 .orElseThrow(() -> new EntityNotFoundException(
                         String.format("Aucune Categorie avec la DESIGNATION %s n'a ete trouvee.", designation),
                         ErrorCodes.CATEGORIE_NOT_FOUND
@@ -80,21 +78,38 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryDto> findAll() {
-        return null;
+
+        return categoryRepository.findAll().stream()
+                .map(CategoryDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     @Override
     public CategoryDto save(CategoryDto categoryDto) {
-        return null;
-    }
 
-    @Override
-    public CategoryDto update(CategoryDto categoryDto) {
-        return null;
+        List<String> errors = CategorieValidator.validate(categoryDto);
+
+        if (!errors.isEmpty()) {
+            log.error("Category is not valide {}", categoryDto);
+            throw new InvalidEntityException(
+                    String.format("La Categorie %s n'est pas valide", categoryDto),
+                    ErrorCodes.CATEGORIE_NOT_VALID, errors);
+
+        }
+
+        Categorie savedCategory = categoryRepository.save(CategoryDto.toEntity(categoryDto));
+
+        return CategoryDto.fromEntity(savedCategory);
     }
 
     @Override
     public void delete(Integer id) {
+
+        if (id == null) {
+            log.error("Category ID is null {}", id);
+        }
+
+        categoryRepository.deleteById(id);
 
     }
 }

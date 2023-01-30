@@ -10,6 +10,5 @@ public interface CategoryService {
     CategoryDto findByDesignation(String designation);
     List<CategoryDto> findAll();
     CategoryDto save(CategoryDto categoryDto);
-    CategoryDto update(CategoryDto categoryDto);
     void delete(Integer id);
 }

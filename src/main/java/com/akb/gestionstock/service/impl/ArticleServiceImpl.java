@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,9 +35,8 @@ public class ArticleServiceImpl implements ArticleService {
             return null;
         }
 
-        Optional<Article> article = articleRepository.findById(id);
-
-        return Optional.of(ArticleDto.fromEntity(article.get()))
+        return articleRepository.findById(id)
+                .map(ArticleDto::fromEntity)
                 .orElseThrow(() -> new EntityNotFoundException(
                         "Aucun article avec l'id " + id + " n'a été trouvé",
                         ErrorCodes.ARTICLE_NOT_FOUND));
@@ -52,9 +50,8 @@ public class ArticleServiceImpl implements ArticleService {
             return null;
         }
 
-        Optional<Article> article = articleRepository.findArticleByCodeArticle(codeArticle);
-
-        return Optional.of(ArticleDto.fromEntity(article.get()))
+        return articleRepository.findArticleByCodeArticle(codeArticle)
+                .map(ArticleDto::fromEntity)
                 .orElseThrow(
                         () -> new EntityNotFoundException(
                                 "Aucun article avec le CODE " + codeArticle + " n'a été trouvé",
