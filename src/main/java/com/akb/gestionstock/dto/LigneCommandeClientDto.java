@@ -1,6 +1,7 @@
 package com.akb.gestionstock.dto;
 
 import com.akb.gestionstock.model.LigneCommandeClient;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 
@@ -12,6 +13,7 @@ public class LigneCommandeClientDto {
 
     private ArticleDto articleDto;
 
+    @JsonIgnore
     private CommandeClientDto commandeClientDto;
 
     public static LigneCommandeClientDto fromEntity(
