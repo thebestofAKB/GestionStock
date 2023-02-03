@@ -13,6 +13,8 @@ public class LigneCommandeClientDto {
 
     private ArticleDto articleDto;
 
+    private Integer idEntreprise;
+
     @JsonIgnore
     private CommandeClientDto commandeClientDto;
 
@@ -30,6 +32,7 @@ public class LigneCommandeClientDto {
                 .articleDto(ArticleDto.fromEntity(ligneCommandeClient.getArticle()))
                 .commandeClientDto(CommandeClientDto.
                         fromEntity(ligneCommandeClient.getCommandeClient()))
+                .idEntreprise(ligneCommandeClient.getIdEntreprise())
                 .build();
     }
 
@@ -46,6 +49,7 @@ public class LigneCommandeClientDto {
         ligneCom.setArticle(ArticleDto.toEntity(ligneComDto.getArticleDto()));
         ligneCom.setCommandeClient(CommandeClientDto
                 .toEntity(ligneComDto.getCommandeClientDto()));
+        ligneCom.setIdEntreprise(ligneComDto.getIdEntreprise());
 
         return ligneCom;
     }

@@ -12,6 +12,8 @@ public class LigneCommandeFournisseurDto {
 
     private ArticleDto articleDto;
 
+    private Integer idEntreprise;
+
     private CommandeFournisseurDto commandeFournisseurDto;
 
     public static LigneCommandeFournisseurDto fromEntity(
@@ -28,6 +30,7 @@ public class LigneCommandeFournisseurDto {
                 .articleDto(ArticleDto.fromEntity(ligneComF.getArticle()))
                 .commandeFournisseurDto(CommandeFournisseurDto
                         .fromEntity(ligneComF.getCommandeFournisseur()))
+                .idEntreprise(ligneComF.getIdEntreprise())
                 .build();
     }
 
@@ -45,6 +48,7 @@ public class LigneCommandeFournisseurDto {
         ligneComFr.setArticle(ArticleDto.toEntity(ligneComFDto.getArticleDto()));
         ligneComFr.setCommandeFournisseur(CommandeFournisseurDto
                 .toEntity(ligneComFDto.getCommandeFournisseurDto()));
+        ligneComFr.setIdEntreprise(ligneComFDto.getIdEntreprise());
 
         return ligneComFr;
     }
