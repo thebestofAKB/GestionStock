@@ -1,10 +1,12 @@
 package com.akb.gestionstock.dto;
 
+import com.akb.gestionstock.model.LigneVente;
 import com.akb.gestionstock.model.Vente;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Builder
@@ -17,6 +19,8 @@ public class VenteDto {
     private Instant dateVente;
 
     private String commentaire;
+
+    private List<LigneVente> ligneVente;
 
     private Integer idEntreprise;
 
