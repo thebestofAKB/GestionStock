@@ -60,14 +60,14 @@ public class VenteServiceImpl implements VenteService {
     @Override
     public VenteDto findByCode(String code) {
 
-        if (!StringUtils.hasLength(code)){
+        if (!StringUtils.hasLength(code)) {
             log.error("CODE is null");
             return null;
         }
 
         return venteRepository.findVenteByCode(code)
                 .map(VenteDto::fromEntity)
-                .orElseThrow(()->new EntityNotFoundException(
+                .orElseThrow(() -> new EntityNotFoundException(
                         String.format("La vente avec le CODE %s n'a pas ete trouve", code),
                         ErrorCodes.VENTE_NOT_FOUND
                 ));
@@ -85,7 +85,7 @@ public class VenteServiceImpl implements VenteService {
 
         List<String> errors = VenteValidator.validate(venteDto);
 
-        if (!errors.isEmpty()){
+        if (!errors.isEmpty()) {
             log.error("Vente is not valid");
             throw new InvalidEntityException("Vente n'est pas valide",
                     ErrorCodes.VENTE_NOT_VALID, errors);
@@ -93,16 +93,16 @@ public class VenteServiceImpl implements VenteService {
 
         List<String> articleErrors = new ArrayList<>();
 
-        venteDto.getLigneVente().forEach(ligneVente -> {
-            Optional<Article> article = articleRepository.findById(ligneVente.getArticle().getId());
-            if (article.isEmpty()){
+        venteDto.getLigneVentes().forEach(ligneVenteDto -> {
+            Optional<Article> article = articleRepository.findById(ligneVenteDto.getArticleDto().getId());
+            if (article.isEmpty()) {
                 articleErrors.add(String.format("Aucun article avec l'ID %d n'a ete trouve dans la base",
-                        ligneVente.getArticle().getId()));
+                        ligneVenteDto.getArticleDto().getId()));
             }
 
         });
 
-        if (!articleErrors.isEmpty()){
+        if (!articleErrors.isEmpty()) {
             log.error("One or more articles were not found in the Database");
             throw new InvalidEntityException("Un ou plusieurs articles n'ont pas ete trouve dans la BDD",
                     ErrorCodes.VENTE_NOT_VALID, articleErrors);
@@ -110,19 +110,24 @@ public class VenteServiceImpl implements VenteService {
 
         Vente savedVente = venteRepository.save(VenteDto.toEntity(venteDto));
 
-        venteDto.getLigneVente().forEach(ligneVenteDto -> {
-            LigneVente ligneVente = LigneVenteDto.toEntity(ligneVenteDto);
-            ligneVente.setVente(savedVente);
-            ligneVenteRepository.save(ligneVente);
+        if (venteDto.getLigneVentes() != null) {
+            venteDto.getLigneVentes().forEach(ligneVenteDto -> {
+                LigneVente ligneVente = LigneVenteDto.toEntity(ligneVenteDto);
 
-        });
+                assert ligneVente != null;
+
+                ligneVente.setVente(savedVente);
+                ligneVenteRepository.save(ligneVente);
+
+            });
+        }
 
         return VenteDto.fromEntity(savedVente);
     }
 
     @Override
     public void delete(Integer id) {
-        if (id == null){
+        if (id == null) {
             log.error("ID is null");
         }
 

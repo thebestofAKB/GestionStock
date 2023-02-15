@@ -20,7 +20,7 @@ public class VenteDto {
 
     private String commentaire;
 
-    private List<LigneVente> ligneVente;
+    private List<LigneVenteDto> ligneVentes;
 
     private Integer idEntreprise;
 

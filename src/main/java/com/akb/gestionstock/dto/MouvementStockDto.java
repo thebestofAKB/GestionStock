@@ -38,6 +38,7 @@ public class MouvementStockDto {
                 .articleDto(ArticleDto.fromEntity(mouvementStock.getArticle()))
                 .quantite(mouvementStock.getQuantite())
                 .idEntreprise(mouvementStock.getIdEntreprise())
+                .typeMouvementStock(mouvementStock.getTypeMouvementStock())
                 .build();
     }
 
@@ -56,6 +57,7 @@ public class MouvementStockDto {
                 .toEntity(mouvementStockDto.getArticleDto()));
         mouvementStock.setQuantite(mouvementStockDto.getQuantite());
         mouvementStock.setIdEntreprise(mouvementStockDto.getIdEntreprise());
+        mouvementStock.setTypeMouvementStock(mouvementStockDto.getTypeMouvementStock());
 
         return mouvementStock;
     }
