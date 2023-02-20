@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "flikr.api",
+      "type": "java.lang.String",
+      "description": "Description for flikr.api."
+  }
+] }

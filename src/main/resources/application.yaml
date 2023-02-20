@@ -19,3 +19,10 @@ spring:
 #Server Port
 server:
   port: 8081
+
+#Flikr Api for saving project images
+flickr:
+  apiKey: 07701c1b5559fa5b823b3e2f701313a0
+  apiSecret: 5a0ebc63bb651d2d
+  appKey: 72157720874057053-eaa2db77dd7d8275
+  appSecret: 70ec6f90402d8735
