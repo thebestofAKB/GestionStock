@@ -1,6 +1,6 @@
-package com.akb.gestionstock.controller.api.impl;
+package com.akb.gestionstock.controller;
 
-import com.akb.gestionstock.controller.api.ArticleControllerApi;
+import com.akb.gestionstock.controller.api.ArticleApi;
 import com.akb.gestionstock.dto.ArticleDto;
 import com.akb.gestionstock.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +12,12 @@ import static com.akb.gestionstock.utils.Constants.APP_ROOT;
 
 @RestController
 @RequestMapping(name = APP_ROOT)
-public class ArticleControllerImpl implements ArticleControllerApi {
+public class ArticleController implements ArticleApi {
 
     private ArticleService articleService;
 
     @Autowired
-    public ArticleControllerImpl(ArticleService articleService) {
+    public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
     }
 

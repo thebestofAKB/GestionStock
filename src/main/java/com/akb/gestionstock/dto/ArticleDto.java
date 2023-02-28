@@ -24,7 +24,7 @@ public class ArticleDto {
 
     private String photo;
 
-    private CategoryDto categoryDto;
+    private CategorieDto categorieDto;
 
     private Integer idEntreprise;
 
@@ -45,7 +45,7 @@ public class ArticleDto {
                 .prixUnitaireTtc(article.getPrixUnitaireTtc())
                 .idEntreprise(article.getIdEntreprise())
                 .photo(article.getPhoto())
-                .categoryDto(CategoryDto.fromEntity(article.getCategorie()))
+                .categorieDto(CategorieDto.fromEntity(article.getCategorie()))
                 .build();
     }
 
@@ -65,7 +65,7 @@ public class ArticleDto {
         article.setPrixUnitaireTtc(articleDto.getPrixUnitaireTtc());
         article.setIdEntreprise(articleDto.getIdEntreprise());
         article.setPhoto(articleDto.getPhoto());
-        article.setCategorie(CategoryDto.toEntity(articleDto.getCategoryDto()));
+        article.setCategorie(CategorieDto.toEntity(articleDto.getCategorieDto()));
 
         return article;
     }

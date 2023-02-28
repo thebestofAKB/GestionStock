@@ -5,14 +5,19 @@ spring:
     password: 12345678
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+    #Pour l'api Swagger
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 # Specify DBMS
   jpa:
     database: mysql
-    show-sql: true
+    show-sql: false
 
     # Hibernate DDL Auto (create, create-drop, update)
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect

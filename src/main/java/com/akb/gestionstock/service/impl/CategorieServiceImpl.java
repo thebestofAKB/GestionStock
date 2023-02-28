@@ -1,12 +1,12 @@
 package com.akb.gestionstock.service.impl;
 
-import com.akb.gestionstock.dto.CategoryDto;
+import com.akb.gestionstock.dto.CategorieDto;
 import com.akb.gestionstock.exception.EntityNotFoundException;
 import com.akb.gestionstock.exception.ErrorCodes;
 import com.akb.gestionstock.exception.InvalidEntityException;
 import com.akb.gestionstock.model.Categorie;
 import com.akb.gestionstock.repository.CategoryRepository;
-import com.akb.gestionstock.service.CategoryService;
+import com.akb.gestionstock.service.CategorieService;
 import com.akb.gestionstock.validator.CategorieValidator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,17 +18,17 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class CategoryServiceImpl implements CategoryService {
+public class CategorieServiceImpl implements CategorieService {
 
     private CategoryRepository categoryRepository;
 
     @Autowired
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+    public CategorieServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
     @Override
-    public CategoryDto findById(Integer id) {
+    public CategorieDto findById(Integer id) {
 
         if (id == null) {
             log.error("Category ID is null");
@@ -36,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         return categoryRepository.findById(id)
-                .map(CategoryDto::fromEntity)
+                .map(CategorieDto::fromEntity)
                 .orElseThrow(
                         () -> new EntityNotFoundException(
                                 "Aucune Categorie avec l'ID " + id + " n'a ete trouvee.",
@@ -45,7 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto findByCode(String codeCategory) {
+    public CategorieDto findByCode(String codeCategory) {
 
         if (!StringUtils.hasLength(codeCategory)) {
             log.error("Category CODE is null");
@@ -53,7 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         return categoryRepository.findCategorieByCode(codeCategory)
-                .map(CategoryDto::fromEntity)
+                .map(CategorieDto::fromEntity)
                 .orElseThrow(() -> new EntityNotFoundException(
                         String.format("Aucune Categorie avec le CODE %s n'a ete trouvee.", codeCategory),
                         ErrorCodes.CATEGORIE_NOT_FOUND
@@ -61,7 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryDto findByDesignation(String designation) {
+    public CategorieDto findByDesignation(String designation) {
 
         if (!StringUtils.hasLength(designation)) {
             log.error("Category DESGINATION is null");
@@ -69,7 +69,7 @@ public class CategoryServiceImpl implements CategoryService {
         }
 
         return categoryRepository.findCategorieByDesignation(designation)
-                .map(CategoryDto::fromEntity)
+                .map(CategorieDto::fromEntity)
                 .orElseThrow(() -> new EntityNotFoundException(
                         String.format("Aucune Categorie avec la DESIGNATION %s n'a ete trouvee.", designation),
                         ErrorCodes.CATEGORIE_NOT_FOUND
@@ -77,29 +77,29 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDto> findAll() {
+    public List<CategorieDto> findAll() {
 
         return categoryRepository.findAll().stream()
-                .map(CategoryDto::fromEntity)
+                .map(CategorieDto::fromEntity)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public CategoryDto save(CategoryDto categoryDto) {
+    public CategorieDto save(CategorieDto categorieDto) {
 
-        List<String> errors = CategorieValidator.validate(categoryDto);
+        List<String> errors = CategorieValidator.validate(categorieDto);
 
         if (!errors.isEmpty()) {
-            log.error("Category is not valide {}", categoryDto);
+            log.error("Category is not valide {}", categorieDto);
             throw new InvalidEntityException(
-                    String.format("La Categorie %s n'est pas valide", categoryDto),
+                    String.format("La Categorie %s n'est pas valide", categorieDto),
                     ErrorCodes.CATEGORIE_NOT_VALID, errors);
 
         }
 
-        Categorie savedCategory = categoryRepository.save(CategoryDto.toEntity(categoryDto));
+        Categorie savedCategory = categoryRepository.save(CategorieDto.toEntity(categorieDto));
 
-        return CategoryDto.fromEntity(savedCategory);
+        return CategorieDto.fromEntity(savedCategory);
     }
 
     @Override

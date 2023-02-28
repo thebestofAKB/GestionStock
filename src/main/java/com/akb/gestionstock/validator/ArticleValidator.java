@@ -40,7 +40,7 @@ public class ArticleValidator {
             errors.add("Veuillez renseigner le prix unitaire TTC de l'article");
         }
 
-        if (articleDto.getCategoryDto() == null) {
+        if (articleDto.getCategorieDto() == null) {
             if (articleDto.getPrixUnitaireHt() == null) {
                 errors.add("Veuillez selectionnez une categorie");
             }
