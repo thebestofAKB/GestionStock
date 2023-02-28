@@ -1,6 +1,5 @@
 package com.akb.gestionstock.controller.api;
 
-import com.akb.gestionstock.dto.ClientDto;
 import com.akb.gestionstock.dto.FournisseurDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
