@@ -79,6 +79,7 @@
 
 	<build>
 		<plugins>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -91,6 +92,48 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>com.github.kongchen</groupId>
+				<artifactId>swagger-maven-plugin</artifactId>
+				<version>3.1.8</version>
+				<configuration>
+					<apiSources>
+						<apiSource>
+							<springmvc>true</springmvc>
+							<locations>
+								<location>com.akb.gestionstock.controller</location>
+							</locations>
+							<basePath>http://localhost:8081</basePath>
+							<info>
+								<title>Swagger Api Documentation for Gestion de Stock Application</title>
+								<version>${project.version}</version>
+								<description>Swagger Api Documentation for Gestion de Stock Application</description>
+								<contact>
+									<email>abdoulkarimbalde25@gmail.com</email>
+                                    <name>Abdoul Karim BALDE</name>
+									<url>https://github.com/thebestofAKB</url>
+								</contact>
+							</info>
+							<outputPath>${project.build.directory}</outputPath>
+							<outputFormats>json</outputFormats>
+                            <swaggerApiReader>com.github.kongchen.swagger.docgen.reader.SpringMvcApiReader</swaggerApiReader>
+							<swaggerDirectory>${project.build.directory}</swaggerDirectory>
+						</apiSource>
+					</apiSources>
+				</configuration>
+
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+
+			</plugin>
+
 		</plugins>
 	</build>
 
