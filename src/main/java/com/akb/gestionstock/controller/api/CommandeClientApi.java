@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +24,7 @@ public interface CommandeClientApi {
             @ApiResponse(code = 200, message = "L'objet commande client a été trouvé dans la BDD"),
             @ApiResponse(code = 404, message = "Aucune commande client avec cet ID n'a été trouvé dans la BDD")
     })
-    CommandeClientDto findById(@PathVariable("idComCli") Integer id);
+    ResponseEntity<CommandeClientDto> findById(@PathVariable("idComCli") Integer id);
 
     @GetMapping(value = APP_ROOT + "/commandeClients/{codeComCli}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une commande Client par CODE", notes = "Permet de chercher une commande client par son CODE",
@@ -32,7 +33,7 @@ public interface CommandeClientApi {
             @ApiResponse(code = 200, message = "L'objet commande client a été trouvé dans la BDD"),
             @ApiResponse(code = 404, message = "Aucune commande client avec ce CODE n'a été trouvé dans la BDD")
     })
-    CommandeClientDto findByCode(@PathVariable("codeComCli") String code);
+    ResponseEntity<CommandeClientDto> findByCode(@PathVariable("codeComCli") String code);
 
     @PostMapping(value = APP_ROOT + "/commandeClients/create", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,7 +43,7 @@ public interface CommandeClientApi {
             @ApiResponse(code = 200, message = "L'objet commande client a été créé/modifié"),
             @ApiResponse(code = 400, message = "L'objet commande client est invalide")
     })
-    CommandeClientDto save(@RequestBody CommandeClientDto commandeCltDto);
+    ResponseEntity<CommandeClientDto> save(@RequestBody CommandeClientDto commandeCltDto);
 
     @GetMapping(value = APP_ROOT + "/commandeClients/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher la liste des commandes clients", notes = "Permet de chercher et renvoyer la liste des commandes clients " +
@@ -50,13 +51,13 @@ public interface CommandeClientApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des commandes clients / liste vide")
     })
-    List<CommandeClientDto> findAll();
+    ResponseEntity<List<CommandeClientDto>> findAll();
 
     @DeleteMapping(value = APP_ROOT + "/commandeClients/delete/{idComCli}")
     @ApiOperation(value = "Supprimer une commande client", notes = "Permet de supprimer une commande client dans la BDD")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La commande client a été supprimé")
     })
-    void delete(@PathVariable("idComCli") Integer id);
+    ResponseEntity<?> delete(@PathVariable("idComCli") Integer id);
 
 }

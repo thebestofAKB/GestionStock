@@ -4,6 +4,8 @@ import com.akb.gestionstock.controller.api.CommandeClientApi;
 import com.akb.gestionstock.dto.CommandeClientDto;
 import com.akb.gestionstock.service.CommandeClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,27 +21,32 @@ public class CommandeClientController implements CommandeClientApi {
     }
 
     @Override
-    public CommandeClientDto findById(Integer id) {
-        return comCliService.findById(id);
+    public ResponseEntity<CommandeClientDto> findById(Integer id) {
+        CommandeClientDto commandeClientDto = comCliService.findById(id);
+        return new ResponseEntity<>(commandeClientDto, HttpStatus.OK);
     }
 
     @Override
-    public CommandeClientDto findByCode(String code) {
-        return comCliService.findByCode(code);
+    public ResponseEntity<CommandeClientDto> findByCode(String code) {
+        CommandeClientDto commandeClientDto = comCliService.findByCode(code);
+        return new ResponseEntity<>(commandeClientDto, HttpStatus.OK);
     }
 
     @Override
-    public CommandeClientDto save(CommandeClientDto commandeCltDto) {
-        return comCliService.save(commandeCltDto);
+    public ResponseEntity<CommandeClientDto> save(CommandeClientDto commandeCltDto) {
+        CommandeClientDto commandeClientDto = comCliService.save(commandeCltDto);
+        return new ResponseEntity<>(commandeClientDto, HttpStatus.CREATED);
     }
 
     @Override
-    public List<CommandeClientDto> findAll() {
-        return comCliService.findAll();
+    public ResponseEntity<List<CommandeClientDto>> findAll() {
+        List<CommandeClientDto> commandeClients = comCliService.findAll();
+        return new ResponseEntity<>(commandeClients, HttpStatus.OK);
     }
 
     @Override
-    public void delete(Integer id) {
+    public ResponseEntity<?> delete(Integer id) {
         comCliService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
