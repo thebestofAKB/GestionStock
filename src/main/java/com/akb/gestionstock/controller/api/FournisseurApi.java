@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.akb.gestionstock.utils.Constants.APP_ROOT;
+import static com.akb.gestionstock.utils.Constants.*;
 
-@Api(APP_ROOT + "/fournisseurs")
+@Api(FOURNISSEUR_ENDPOINT)
 public interface FournisseurApi {
 
-    @GetMapping(value = APP_ROOT + "/fournisseurs/{idFournisseur}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = FIND_FOURNISSEUR_BY_ID_ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un fournisseur par ID", notes = "Permet de chercher un fournisseur par son ID",
             response = FournisseurDto.class)
     @ApiResponses(value = {
@@ -24,7 +24,7 @@ public interface FournisseurApi {
     })
     FournisseurDto findById(@PathVariable("idFournisseur") Integer id);
 
-    @PostMapping(value = APP_ROOT + "/fournisseurs/create", consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(value = CREATE_FOURNISSEUR_ENDPOINT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer un fournisseur", notes = "Permet d'ajouter et/ou de modifier un fournisseur",
             response = FournisseurDto.class)
@@ -34,7 +34,7 @@ public interface FournisseurApi {
     })
     FournisseurDto save(@RequestBody FournisseurDto fournisseurDto);
 
-    @GetMapping(value = APP_ROOT + "/fournisseurs/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = FIND_ALL_FOURNISSEUR_ENDPOINT, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher la liste des fournisseurs", notes = "Permet de chercher et renvoyer la liste des fournisseurs " +
             "qui existent dans la BDD", responseContainer = "List<FournisseurDto>")
     @ApiResponses(value = {
@@ -42,7 +42,7 @@ public interface FournisseurApi {
     })
     List<FournisseurDto> findAll();
 
-    @DeleteMapping(value = APP_ROOT + "/fournisseurs/delete/{idFournisseur}")
+    @DeleteMapping(value = DELETE_FOURNISSEUR_ENDPOINT)
     @ApiOperation(value = "Supprimer un fournisseur", notes = "Permet de supprimer un fournisseur dans la BDD")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le fournisseur a été supprimé")
