@@ -5,8 +5,8 @@ import lombok.Getter;
 import java.util.List;
 
 /**
- * Cette classe est appelee quand on essaye d'envoyer
- * des donnees invalides en base de donnees
+ * Cette classe est appelée quand on essaye d'envoyer
+ * des données invalides en base de données
  */
 public class InvalidEntityException extends RuntimeException {
 

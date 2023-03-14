@@ -14,13 +14,15 @@ spring:
   jpa:
     database: mysql
     show-sql: false
+    properties:
+
 
     # Hibernate DDL Auto (create, create-drop, update)
-    hibernate:
-      ddl-auto: create
-    properties:
       hibernate:
+        ddl-auto: update
         dialect: org.hibernate.dialect.MySQL5Dialect
+        ejb:
+          interceptor: com.akb.gestionstock.interceptor.Interceptor
 #Server Port
 server:
   port: 8081
